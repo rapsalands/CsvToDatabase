@@ -4,27 +4,53 @@ using System.Linq;
 
 namespace CsvToDatabaseAbstraction.Models
 {
+    /// <summary>
+    /// Table Options to create database table.
+    /// </summary>
     public class TableOption
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public TableOption()
         {
 
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="columnDefinitions"></param>
         public TableOption(string filePath, List<ColumnDefinition> columnDefinitions = null)
         {
             FilePath = filePath;
             ColumnDefinitions = columnDefinitions;
         }
 
+        /// <summary>
+        /// CSV File path to create database table.
+        /// </summary>
         public string FilePath { get; set; }
+
+        /// <summary>
+        /// CSV file name with extension.
+        /// </summary>
         public string FileName => Path.GetFileName(FilePath);
+        
+        /// <summary>
+        /// CSV file name without extension.
+        /// </summary>
         public string FileNameNoExtension => Path.GetFileNameWithoutExtension(FilePath);
 
-        public string Identity { get; set; }
-
+        /// <summary>
+        /// Column definitions for this table.
+        /// </summary>
         public List<ColumnDefinition> ColumnDefinitions { get; set; }
 
+        /// <summary>
+        /// Returns Primary column is exists else null.
+        /// </summary>
         public ColumnDefinition Primary
         {
             get
@@ -34,6 +60,9 @@ namespace CsvToDatabaseAbstraction.Models
             }
         }
 
+        /// <summary>
+        /// Returns if table has primary column.
+        /// </summary>
         public bool HasPrimary => Primary != null;
     }
 }

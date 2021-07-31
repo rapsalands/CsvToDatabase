@@ -10,9 +10,24 @@ namespace CsvToDatabaseAbstraction.Models
     /// </summary>
     public enum ColumnType
     {
+        /// <summary>
+        /// Boolean
+        /// </summary>
         Bit = 1,
+
+        /// <summary>
+        /// DateTime
+        /// </summary>
         DateTime = 3,
+        
+        /// <summary>
+        /// Interger/Number
+        /// </summary>
         Int = 4,
+        
+        /// <summary>
+        /// Text
+        /// </summary>
         VarChar = 6,
     }
 }

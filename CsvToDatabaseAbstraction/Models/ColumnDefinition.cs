@@ -2,24 +2,45 @@
 
 namespace CsvToDatabaseAbstraction.Models
 {
+    /// <summary>
+    /// Column Definitions used to build table columns.
+    /// </summary>
     public class ColumnDefinition
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ColumnDefinition()
         {
 
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="name">Column name</param>
         public ColumnDefinition(string name)
         {
             Name = name;
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="name">Column name</param>
+        /// <param name="columnType">Column type</param>
         public ColumnDefinition(string name, ColumnType columnType)
         {
             Name = name;
             ColumnType = columnType;
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="name">Column name</param>
+        /// <param name="isPrimary">Is Primary key Column</param>
+        /// <param name="identity">If identity column. Considered only for primary key column.</param>
         public ColumnDefinition(string name, bool isPrimary, bool identity = true)
         {
             Name = name;
@@ -28,6 +49,13 @@ namespace CsvToDatabaseAbstraction.Models
             ColumnType = ColumnType.Int;
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="name">Column nam</param>
+        /// <param name="columnType">Column type</param>
+        /// <param name="maxLength">Max length of column. Considered only for text based columns.</param>
+        /// <param name="isPrimary">Is column primary key</param>
         public ColumnDefinition(string name, ColumnType columnType, int maxLength, bool isPrimary)
         {
             Name = name;
@@ -96,18 +124,9 @@ namespace CsvToDatabaseAbstraction.Models
         /// <param name="value"></param>
         public void SetIsNull(string value)
         {
-            if (IsNull)
-            {
-                return;
-            }
+            if (IsNull) return;
 
             var isNull = string.IsNullOrWhiteSpace(value);
-
-            if (isNull)
-            {
-                Console.WriteLine(IsNull);
-            }
-
             IsNull = isNull;
         }
     }

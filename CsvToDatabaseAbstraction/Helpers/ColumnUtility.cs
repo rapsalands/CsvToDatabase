@@ -6,13 +6,17 @@ using System.Linq;
 
 namespace CsvToDatabaseAbstraction.Helpers
 {
+    /// <summary>
+    /// Utility functions for Column
+    /// </summary>
     public class ColumnUtility
     {
-        public ColumnUtility()
-        {
-
-        }
-
+        /// <summary>
+        /// Creates column definitions based on the column names passed. Other values are default.
+        /// Use ConfigureDefinitions method to make changes.
+        /// </summary>
+        /// <param name="columnNames"></param>
+        /// <returns></returns>
         public List<ColumnDefinition> CreateDefinitions(IEnumerable<string> columnNames)
         {
             var columnDefinitions = new List<ColumnDefinition>();
@@ -29,6 +33,11 @@ namespace CsvToDatabaseAbstraction.Helpers
             return columnDefinitions;
         }
 
+        /// <summary>
+        /// Configure/Modify column definitions based on the records passed.
+        /// </summary>
+        /// <param name="records">All records of a file.</param>
+        /// <param name="columnDefinitions">Default column definitions.</param>
         public void ConfigureDefinitions(List<object> records, List<ColumnDefinition> columnDefinitions)
         {
             foreach (ExpandoObject recordObject in records)
@@ -43,6 +52,11 @@ namespace CsvToDatabaseAbstraction.Helpers
             }
         }
 
+        /// <summary>
+        /// Determine column type based on the value passed.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private ColumnType Determine(string value)
         {
             var parsed = bool.TryParse(value, out _);
@@ -57,6 +71,11 @@ namespace CsvToDatabaseAbstraction.Helpers
             return ColumnType.VarChar;
         }
 
+        /// <summary>
+        /// Format CSV column header value by removing spaces and capitalizing first letter.
+        /// </summary>
+        /// <param name="columnName"></param>
+        /// <returns></returns>
         private string FormatColumnName(string columnName)
         {
             columnName = $"{char.ToUpper(columnName[0])}{columnName.Substring(1)}";
@@ -64,6 +83,11 @@ namespace CsvToDatabaseAbstraction.Helpers
             return columnName;
         }
 
+        /// <summary>
+        /// Returns new primary column with default values and identity as true.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public ColumnDefinition DefaultPrimaryColumn(string name = "Id")
         {
             return new ColumnDefinition
@@ -76,16 +100,16 @@ namespace CsvToDatabaseAbstraction.Helpers
             };
         }
 
-        public bool HasPrimary(IEnumerable<ColumnDefinition> columnDefinitions, string name = "Id")
-        {
-            var primary = columnDefinitions.SingleOrDefault(n => n.Name == name && n.IsPrimary);
-            return primary != null;
-        }
-
-        public ColumnDefinition GetPrimary(List<ColumnDefinition> definitions, string name = "Id")
+        /// <summary>
+        /// Checks if definitions passed has primary column.
+        /// </summary>
+        /// <param name="definitions"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public bool HasPrimary(IEnumerable<ColumnDefinition> definitions, string name = "Id")
         {
             var primary = definitions.SingleOrDefault(n => n.Name == name && n.IsPrimary);
-            return primary;
+            return primary != null;
         }
     }
 }

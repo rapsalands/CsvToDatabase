@@ -6,6 +6,9 @@ using UnitTests.Helper;
 
 namespace UnitTests.Common
 {
+    /// <summary>
+    /// Tests related to primary column in table.
+    /// </summary>
     public abstract class AddPrimaryColumnAsTests : BaseTest
     {
         [Fact]

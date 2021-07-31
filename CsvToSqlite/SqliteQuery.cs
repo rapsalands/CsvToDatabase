@@ -28,49 +28,8 @@ namespace CsvToSqlite
         public override string CreateTable(TableOption tableOption)
         {
             var tableName = tableOption.FileNameNoExtension;
-            string sql = $@"create table {tableName} ({ColumnsQuery(tableOption.ColumnDefinitions)})";
+            string sql = $@"create table {tableName} ({ColumnsQuery(tableOption)})";
             return sql;
-
-            string ColumnsQuery(List<ColumnDefinition> definitions)
-            {
-                var sb = new StringBuilder();
-
-                foreach (var cd in definitions)
-                {
-                    if (sb.Length > 0) sb.Append(",");
-                    sb.Append($"{cd.Name} {ColumnTypeText(cd)} {NullText(cd)}");
-                }
-
-                if (tableOption.HasPrimary)
-                {
-                    sb.Append(",");
-
-                    var autoincrement = tableOption.Primary.Identity ? "AUTOINCREMENT" : "";
-                    sb.Append($"PRIMARY KEY ({tableOption.Primary.Name} {autoincrement})");
-                }
-
-                return sb.ToString();
-            }
-
-            string ColumnTypeText(ColumnDefinition columnDefinition)
-            {
-                string integer = "INTEGER", text = "TEXT";
-
-                switch (columnDefinition.ColumnType)
-                {
-                    case ColumnType.Bit:
-                    case ColumnType.Int:
-                        return integer;
-
-                    case ColumnType.DateTime:
-                    case ColumnType.VarChar:
-                        return $"{text}({columnDefinition.MaxLength})";
-                    default:
-                        return text;
-                }
-            }
-
-            string NullText(ColumnDefinition columnDefinition) => columnDefinition.IsNull ? "NULL" : "NOT NULL";
         }
 
         /// <summary>
@@ -91,5 +50,61 @@ namespace CsvToSqlite
 
             return sql;
         }
+
+        /// <summary>
+        /// Returns query for adding columns to database table.
+        /// </summary>
+        /// <param name="tableOption">Table Option</param>
+        /// <returns></returns>
+        string ColumnsQuery(TableOption tableOption)
+        {
+            var sb = new StringBuilder();
+
+            foreach (var cd in tableOption.ColumnDefinitions)
+            {
+                if (sb.Length > 0) sb.Append(",");
+                sb.Append($"{cd.Name} {ColumnTypeText(cd)} {NullText(cd)}");
+            }
+
+            if (tableOption.HasPrimary)
+            {
+                sb.Append(",");
+
+                var autoincrement = tableOption.Primary.Identity ? "AUTOINCREMENT" : "";
+                sb.Append($"PRIMARY KEY ({tableOption.Primary.Name} {autoincrement})");
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Return column type based on column definition.
+        /// </summary>
+        /// <param name="columnDefinition"></param>
+        /// <returns></returns>
+        string ColumnTypeText(ColumnDefinition columnDefinition)
+        {
+            string integer = "INTEGER", text = "TEXT";
+
+            switch (columnDefinition.ColumnType)
+            {
+                case ColumnType.Bit:
+                case ColumnType.Int:
+                    return integer;
+
+                case ColumnType.DateTime:
+                case ColumnType.VarChar:
+                    return $"{text}({columnDefinition.MaxLength})";
+                default:
+                    return text;
+            }
+        }
+
+        /// <summary>
+        /// Returns text for Null/NotNull based on argument.
+        /// </summary>
+        /// <param name="columnDefinition"></param>
+        /// <returns></returns>
+        string NullText(ColumnDefinition columnDefinition) => columnDefinition.IsNull ? "NULL" : "NOT NULL";
     }
 }

@@ -10,6 +10,10 @@ namespace CsvToDatabaseAbstraction
     /// </summary>
     public abstract class CsvToDbWorkflow : DbObjectProvider
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="databasePath"></param>
         public CsvToDbWorkflow(string databasePath) : base(databasePath)
         {
         }
@@ -74,6 +78,11 @@ namespace CsvToDatabaseAbstraction
             }
         }
 
+        /// <summary>
+        /// return mapping of Column Name, Column Key and parameter key.
+        /// </summary>
+        /// <param name="tableOption"></param>
+        /// <returns></returns>
         private List<ColumnParameterMapping> ColumnParamMapping(TableOption tableOption)
         {
             var result = new List<ColumnParameterMapping>();

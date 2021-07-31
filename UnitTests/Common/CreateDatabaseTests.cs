@@ -5,6 +5,9 @@ using CsvToDatabaseAbstraction.Models;
 
 namespace UnitTests.Common
 {
+    /// <summary>
+    /// Tests related to creation of database.
+    /// </summary>
     public abstract class CreateDatabaseTests : BaseTest
     {
         private Csv2DbOption option;
@@ -30,7 +33,7 @@ namespace UnitTests.Common
         [Fact]
         public void LoadData()
         {
-            option.LoadData = true;
+            option.PopulateData = true;
             csvToDb = new CsvToDatabase(option);
             var databasePath = ToDbType(csvToDb);
             Assert.True(File.Exists(databasePath));

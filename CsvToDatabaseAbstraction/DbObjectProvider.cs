@@ -5,11 +5,30 @@ namespace CsvToDatabaseAbstraction
 {
     public abstract class DbObjectProvider
     {
+        /// <summary>
+        /// Database Path
+        /// </summary>
         public string DatabasePath { get; }
+
+        /// <summary>
+        /// DB Command object.
+        /// </summary>
         public DbCommand DbCommand { get; }
+
+        /// <summary>
+        /// DB Connection.
+        /// </summary>
         public DbConnection DbConnection { get; }
+
+        /// <summary>
+        /// DbC Transaction.
+        /// </summary>
         private DbTransaction dbTransaction { get; set; }
 
+        /// <summary>
+        /// Constructor. Modifies database name based on extension passed.
+        /// </summary>
+        /// <param name="databasePath"></param>
         public DbObjectProvider(string databasePath)
         {
             if (!databasePath.EndsWith(".sqlite"))
@@ -38,6 +57,11 @@ namespace CsvToDatabaseAbstraction
         /// <returns></returns>
         public abstract DbParameter DbParameter();
 
+        /// <summary>
+        /// Returns command object after attaching SQL query and connection.
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public DbCommand GetDbCommand(string sql)
         {
             var command = DbCommand;
@@ -46,12 +70,19 @@ namespace CsvToDatabaseAbstraction
             return command;
         }
 
+        /// <summary>
+        /// Open connection and begin transaction.
+        /// </summary>
         public void Begin()
         {
             DbConnection.Open();
             dbTransaction = DbConnection.BeginTransaction();
         }
 
+        /// <summary>
+        /// Commit transaction in try/catch. Rollback if failed.
+        /// </summary>
+        /// <returns></returns>
         public bool Commit()
         {
             try
@@ -61,6 +92,7 @@ namespace CsvToDatabaseAbstraction
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 dbTransaction.Rollback();
                 return false;
             }

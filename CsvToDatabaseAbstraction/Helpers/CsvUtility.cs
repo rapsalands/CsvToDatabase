@@ -8,17 +8,29 @@ using System.Linq;
 
 namespace CsvToDatabaseAbstraction.Helpers
 {
+    /// <summary>
+    /// Utility functions for CSV.
+    /// </summary>
     public class CsvUtility
     {
         private readonly Validate validate;
         private readonly ColumnUtility columnUtility;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public CsvUtility()
         {
             validate = new Validate();
             columnUtility = new ColumnUtility();
         }
 
+        /// <summary>
+        /// Read data from a CSV file.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public List<T> Read<T>(string filePath)
         {
             validate.AssertFilePath(filePath);
@@ -34,11 +46,21 @@ namespace CsvToDatabaseAbstraction.Helpers
             return records.ToList();
         }
 
+        /// <summary>
+        /// Handler for bad data.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="args"></param>
         private void BadDataFoundHandler(string filePath, BadDataFoundArgs args)
         {
 
         }
 
+        /// <summary>
+        /// Get Column header names from file passed.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public List<string> GetColumnNames(string filePath)
         {
             validate.AssertFilePath(filePath);
@@ -52,6 +74,13 @@ namespace CsvToDatabaseAbstraction.Helpers
             return headerRow.ToList();
         }
 
+        /// <summary>
+        /// Build table Option based on the paramerters.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="records"></param>
+        /// <param name="csv2DbOption"></param>
+        /// <returns></returns>
         public TableOption BuildTableOption(string filePath, List<object> records, Csv2DbOption csv2DbOption)
         {
             validate.AssertFilePath(filePath);
@@ -68,6 +97,11 @@ namespace CsvToDatabaseAbstraction.Helpers
             return tableOption;
         }
 
+        /// <summary>
+        /// Add primary column if needed.
+        /// </summary>
+        /// <param name="csv2DbOption"></param>
+        /// <param name="definitions"></param>
         private void AddPrimaryKeyColumn(Csv2DbOption csv2DbOption, List<ColumnDefinition> definitions)
         {
             if (string.IsNullOrWhiteSpace(csv2DbOption.AddPrimaryColumnAs)) return;
