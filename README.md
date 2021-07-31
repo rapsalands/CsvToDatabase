@@ -17,7 +17,7 @@
 
 # CsvToDatabase
 
-[![NuGet version (CsvToDatabase)](https://img.shields.io/nuget/v/CsvToDatabase.svg?style=flat-square)](https://www.nuget.org/packages/CsvToDatabase/)
+[![NuGet version (CsvToDatabaseAbstraction)](https://img.shields.io/nuget/v/CsvToDatabaseAbstraction.svg?style=flat-square)](https://www.nuget.org/packages/CsvToDatabaseAbstraction/)
 
 This library does provides the base functionality for converting CSV files to database. This library need not be used when using related packages like `CsvToSqlite`.
 
