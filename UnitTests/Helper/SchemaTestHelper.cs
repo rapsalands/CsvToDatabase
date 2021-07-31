@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Data.Common;
 using System.Collections.Generic;
+using CsvToDatabaseAbstraction.Models;
 
 namespace UnitTests.Helper
 {
@@ -69,6 +70,30 @@ namespace UnitTests.Helper
             connection.Dispose();
 
             return result;
+        }
+
+        /// <summary>
+        /// Find column definition from table options.
+        /// </summary>
+        /// <param name="tableOption"></param>
+        /// <param name="columnName"></param>
+        /// <returns></returns>
+        public ColumnDefinition FindColumnDefinition(TableOption tableOption, string columnName)
+        {
+            var cd = tableOption.ColumnDefinitions.SingleOrDefault(n => n.Name == columnName);
+            return cd;
+        }
+
+        /// <summary>
+        /// Find table option from table options.
+        /// </summary>
+        /// <param name="tableOptions"></param>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
+        public TableOption FindTableOption(List<TableOption> tableOptions, string tableName)
+        {
+            var cd = tableOptions.SingleOrDefault(n => n.FileNameNoExtension == tableName);
+            return cd;
         }
     }
 }

@@ -88,7 +88,7 @@ namespace CsvToDatabaseAbstraction.Helpers
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public ColumnDefinition DefaultPrimaryColumn(string name = "Id")
+        public ColumnDefinition DefaultPrimaryColumn(string name)
         {
             return new ColumnDefinition
             {

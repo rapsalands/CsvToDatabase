@@ -9,7 +9,7 @@ namespace UnitTests.Common
     /// <summary>
     /// Tests related to primary column in table.
     /// </summary>
-    public abstract class AddPrimaryColumnAsTests : BaseTest
+    public abstract partial class CommonTests : BaseTest
     {
         [Fact]
         public void IdAutomaticTest()
@@ -21,7 +21,7 @@ namespace UnitTests.Common
             };
 
             var csv = new CsvToDatabase(csvOptions);
-            string databasePath = csv.ToSqlite();
+            string databasePath = ToDbType(csv);
 
             var schema = SchemaTestHelper.GetColumnsSchema(databasePath);
             SchemaAssert.ColumnFound(schema, "Id");
@@ -38,7 +38,7 @@ namespace UnitTests.Common
             };
 
             var csv = new CsvToDatabase(csvOptions);
-            string databasePath = csv.ToSqlite();
+            string databasePath = ToDbType(csv);
 
             var schema = SchemaTestHelper.GetColumnsSchema(databasePath);
             SchemaAssert.ColumnNotFound(schema, "Id");
@@ -55,7 +55,7 @@ namespace UnitTests.Common
             };
 
             var csv = new CsvToDatabase(csvOptions);
-            string databasePath = csv.ToSqlite();
+            string databasePath = ToDbType(csv);
 
             var schema = SchemaTestHelper.GetColumnsSchema(databasePath);
             SchemaAssert.ColumnNotFound(schema, "Id");
@@ -72,7 +72,7 @@ namespace UnitTests.Common
             };
 
             var csv = new CsvToDatabase(csvOptions);
-            string databasePath = csv.ToSqlite();
+            string databasePath = ToDbType(csv);
 
             var schema = SchemaTestHelper.GetColumnsSchema(databasePath);
             SchemaAssert.ColumnFound(schema, "TableId");

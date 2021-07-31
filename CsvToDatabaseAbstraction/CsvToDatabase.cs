@@ -113,8 +113,8 @@ namespace CsvToDatabaseAbstraction
                 var records = csvUtility.Read<object>(filePath);
                 var tableOption = csvUtility.BuildTableOption(filePath, records, csv2DbOption);
 
-                if (needCustomization) CreateTableAndPopulateData(csvToDbWorkflow, csv2DbOption, tableOption);
-                else tableOptions.Add(tableOption);
+                if (needCustomization) tableOptions.Add(tableOption);
+                else CreateTableAndPopulateData(csvToDbWorkflow, csv2DbOption, tableOption);
             }
 
             return tableOptions;
