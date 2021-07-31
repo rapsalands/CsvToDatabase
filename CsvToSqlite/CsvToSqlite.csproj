@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>Rapsy Tree</Authors>
+    <Company>StackMemory</Company>
+    <Description>Based on CsvToDatabaseAbstraction package. This package helps to generate SQLite database based on CSV files.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CsvToDatabaseAbstraction" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.8" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.114.3" />
+  </ItemGroup>
+
+</Project>
