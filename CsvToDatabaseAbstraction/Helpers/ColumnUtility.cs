@@ -64,7 +64,7 @@ namespace CsvToDatabaseAbstraction.Helpers
             return columnName;
         }
 
-        public ColumnDefinition PrimaryColumn(string name = "Id")
+        public ColumnDefinition DefaultPrimaryColumn(string name = "Id")
         {
             return new ColumnDefinition
             {

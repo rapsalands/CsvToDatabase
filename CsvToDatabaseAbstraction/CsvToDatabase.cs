@@ -61,7 +61,7 @@ namespace CsvToDatabaseAbstraction
             {
                 var records = csvUtility.Read<object>(filePath);
 
-                var tableOption = csvUtility.BuildTableOption(filePath, records);
+                var tableOption = csvUtility.BuildTableOption(filePath, records, csv2DbOption);
                 csvToDbWorkflow.CreateTable(tableOption);
 
                 if (csv2DbOption.LoadData)

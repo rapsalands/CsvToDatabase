@@ -2,7 +2,6 @@
 using CsvHelper;
 using CsvHelper.Configuration;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -37,7 +36,7 @@ namespace CsvToDatabaseAbstraction.Helpers
 
         private void BadDataFoundHandler(string filePath, BadDataFoundArgs args)
         {
-            
+
         }
 
         public List<string> GetColumnNames(string filePath)
@@ -48,12 +47,12 @@ namespace CsvToDatabaseAbstraction.Helpers
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
             var records = csv.Read();
             csv.ReadHeader();
-            
+
             string[] headerRow = csv.HeaderRecord;
             return headerRow.ToList();
         }
 
-        public TableOption BuildTableOption(string filePath, List<object> records, bool needIdColumn = true)
+        public TableOption BuildTableOption(string filePath, List<object> records, Csv2DbOption csv2DbOption)
         {
             validate.AssertFilePath(filePath);
 
@@ -61,15 +60,20 @@ namespace CsvToDatabaseAbstraction.Helpers
             var definitions = columnUtility.CreateDefinitions(columns);
 
             columnUtility.ConfigureDefinitions(records, definitions);
-            if(needIdColumn)
-            {
-                if (!columnUtility.HasPrimary(definitions))
-                    definitions.Insert(0, columnUtility.PrimaryColumn());
-            }
+
+            AddPrimaryKeyColumn(csv2DbOption, definitions);
 
             var tableOption = new TableOption(filePath, definitions);
 
             return tableOption;
+        }
+
+        private void AddPrimaryKeyColumn(Csv2DbOption csv2DbOption, List<ColumnDefinition> definitions)
+        {
+            if (string.IsNullOrWhiteSpace(csv2DbOption.AddPrimaryColumnAs)) return;
+            if (columnUtility.HasPrimary(definitions, csv2DbOption.AddPrimaryColumnAs)) return;
+
+            definitions.Insert(0, columnUtility.DefaultPrimaryColumn());
         }
     }
 }
