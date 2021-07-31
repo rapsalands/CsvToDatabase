@@ -73,6 +73,10 @@ namespace CsvToDatabaseAbstraction
             var commited = csvToDbWorkflow.Commit();
             if (!commited) File.Delete(databasePath);
 
+            csvToDbWorkflow.DbConnection.Close();
+            csvToDbWorkflow.DbConnection.Dispose();
+            csvToDbWorkflow.DbCommand.Dispose();
+
             return databasePath;
         }
     }

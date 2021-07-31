@@ -8,9 +8,9 @@ namespace CsvToSqlite
         /// Converts CSV to Sqlite Database.
         /// </summary>
         /// <param name="csvToDb"></param>
-        public static void ToSqlite(this CsvToDatabase csvToDb)
+        public static string ToSqlite(this CsvToDatabase csvToDb)
         {
-            csvToDb.GenerateDb((databasePath) => new ToSqliteWorkflow(databasePath));
+            return csvToDb.GenerateDb((databasePath) => new ToSqliteWorkflow(databasePath));
         }
     }
 }

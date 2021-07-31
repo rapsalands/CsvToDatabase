@@ -1,20 +1,20 @@
 using Xunit;
-using CsvToSqlite;
-using CsvToDatabaseAbstraction.Models;
+using System.IO;
 using CsvToDatabaseAbstraction;
+using CsvToDatabaseAbstraction.Models;
 
-namespace UnitTests
+namespace UnitTests.Common
 {
-    public class CsvToSqliteTests
+    public abstract class CreateDatabaseTests : BaseTest
     {
         private Csv2DbOption option;
         private CsvToDatabase csvToDb;
 
-        public CsvToSqliteTests()
+        public CreateDatabaseTests()
         {
             option = new Csv2DbOption
             {
-                DatabasePath = "DumpData/Sample",
+                DatabasePath = DatabasePath(),
                 SourcePath = @"DumpData"
             };
         }
@@ -23,7 +23,8 @@ namespace UnitTests
         public void CreateDbOnly()
         {
             csvToDb = new CsvToDatabase(option);
-            csvToDb.ToSqlite();
+            var databasePath = ToDbType(csvToDb);
+            Assert.True(File.Exists(databasePath));
         }
 
         [Fact]
@@ -31,7 +32,8 @@ namespace UnitTests
         {
             option.LoadData = true;
             csvToDb = new CsvToDatabase(option);
-            csvToDb.ToSqlite();
+            var databasePath = ToDbType(csvToDb);
+            Assert.True(File.Exists(databasePath));
         }
     }
 }

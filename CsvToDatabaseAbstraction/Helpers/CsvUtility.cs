@@ -73,7 +73,7 @@ namespace CsvToDatabaseAbstraction.Helpers
             if (string.IsNullOrWhiteSpace(csv2DbOption.AddPrimaryColumnAs)) return;
             if (columnUtility.HasPrimary(definitions, csv2DbOption.AddPrimaryColumnAs)) return;
 
-            definitions.Insert(0, columnUtility.DefaultPrimaryColumn());
+            definitions.Insert(0, columnUtility.DefaultPrimaryColumn(csv2DbOption.AddPrimaryColumnAs));
         }
     }
 }

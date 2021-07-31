@@ -44,6 +44,6 @@
         /// However new column will be added only if no column with provided name exists in table.
         /// If set as null or empty string, no column will be added.
         /// </summary>
-        public string AddPrimaryColumnAs { get; set; }
+        public string AddPrimaryColumnAs { get; set; } = "Id";
     }
 }
