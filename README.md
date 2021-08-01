@@ -21,23 +21,23 @@
 
 #### SourcePath (string)
     - This can be CSV file path. In this case a database will be created with single table. File name will be used as table name by default.
-    - Or this can be direction path with single/multiple CSV files. In this case a database will be created with tables equals to the CSV files in provided directory/sub-directories.
-    - Each table will have columns as per the header values in each CSV file.
+    - Or this can be directory path with single/multiple CSV files inside in it. In this case a database will be created with tables equals to the CSV files in directory/sub-directories.
+    - Each table will have columns as per the header values in corresponding CSV file.
     - Table and column configuration can be customized using `CustomizeTableData` function.
 
 #### PopulateData (bool)
     - True: When set to true, populate data from CSV after creating database.
-    - False: When set to false, empty data will be created.
+    - False: When set to false, empty database with tables will be created.
 
 #### AddPrimaryColumnAs (string)
     - Defaults to "Id". Means a primary key column with name "Id" will be added to every table provided no Id column is present in CSV file of that table.
-    - Primary Key column are marked Identity and will hae seed of 1.
+    - Primary Key column are marked Identity and will have seed of 1.
     - If this attribute is set to `null` or empty string then no primary key column will be added automatically.
 
 #### List<TableOption> CustomizeTableData(List<TableOption>)
-    - This method takes colleciton of tables option (and each tableOption corresponds to each CSV file).
-    - Input arguments are untouched table option.
-    - Chnage values as needed and return the changed table options.
+    - This method takes collection of table option (and each table option corresponds to each CSV file).
+    - Input argument is untouched table option collection.
+    - Change values as needed and return the changed table option collection.
 
 ---
 
