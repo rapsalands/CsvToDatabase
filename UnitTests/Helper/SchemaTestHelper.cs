@@ -92,7 +92,7 @@ namespace UnitTests.Helper
         /// <returns></returns>
         public TableOption FindTableOption(List<TableOption> tableOptions, string tableName)
         {
-            var cd = tableOptions.SingleOrDefault(n => n.FileNameNoExtension == tableName);
+            var cd = tableOptions.SingleOrDefault(n => n.Name == tableName);
             return cd;
         }
     }

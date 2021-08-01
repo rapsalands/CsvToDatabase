@@ -27,7 +27,7 @@ namespace CsvToSqlite
         /// <returns></returns>
         public override string CreateTable(TableOption tableOption)
         {
-            var tableName = tableOption.FileNameNoExtension;
+            var tableName = tableOption.Name;
             string sql = $@"create table {tableName} ({ColumnsQuery(tableOption)})";
             return sql;
         }
@@ -44,7 +44,7 @@ namespace CsvToSqlite
             var colNames = columnParameterMappings.Select(n => n.ColumnName).ToArray();
             var paramNames = columnParameterMappings.Select(n => n.ParameterKey).ToArray();
 
-            string sql = $@"insert into {tableOption.FileNameNoExtension} 
+            string sql = $@"insert into {tableOption.Name} 
                                 ({string.Join(',', colNames)})
                                 values ({string.Join(',', paramNames)})";
 

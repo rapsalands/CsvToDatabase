@@ -9,12 +9,14 @@ namespace CsvToDatabaseAbstraction.Models
     /// </summary>
     public class TableOption
     {
+        private string name;
+
         /// <summary>
         /// Constructor
         /// </summary>
         public TableOption()
         {
-
+            name = Path.GetFileNameWithoutExtension(FilePath);
         }
 
         /// <summary>
@@ -37,11 +39,11 @@ namespace CsvToDatabaseAbstraction.Models
         /// CSV file name with extension.
         /// </summary>
         public string FileName => Path.GetFileName(FilePath);
-        
+
         /// <summary>
-        /// CSV file name without extension.
+        /// Table name (CSV file name without extension).
         /// </summary>
-        public string FileNameNoExtension => Path.GetFileNameWithoutExtension(FilePath);
+        public string Name { get => name; set => name = value; }
 
         /// <summary>
         /// Column definitions for this table.
