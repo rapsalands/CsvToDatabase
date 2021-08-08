@@ -46,6 +46,11 @@ namespace CsvToSqlite
         public override DbQuery DbQuery => new SqliteQuery(DatabasePath);
 
         /// <summary>
+        /// Database extension.
+        /// </summary>
+        public override string DbExtension => "sqlite";
+
+        /// <summary>
         /// Methos creates database.
         /// </summary>
         /// <returns>Returns database path.</returns>

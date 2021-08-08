@@ -31,8 +31,8 @@ namespace CsvToDatabaseAbstraction
         /// <param name="databasePath"></param>
         public DbObjectProvider(string databasePath)
         {
-            if (!databasePath.EndsWith(".sqlite"))
-                databasePath = $"{databasePath}.sqlite";
+            if (!databasePath.EndsWith($".{DbExtension}"))
+                databasePath = $"{databasePath}.{DbExtension}";
 
             DatabasePath = databasePath;
 
@@ -56,6 +56,11 @@ namespace CsvToDatabaseAbstraction
         /// </summary>
         /// <returns></returns>
         public abstract DbParameter DbParameter();
+
+        /// <summary>
+        /// Database extension.
+        /// </summary>
+        public abstract string DbExtension { get; }
 
         /// <summary>
         /// Returns command object after attaching SQL query and connection.

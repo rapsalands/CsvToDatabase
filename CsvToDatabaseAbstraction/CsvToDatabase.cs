@@ -12,6 +12,7 @@ namespace CsvToDatabaseAbstraction
     public class CsvToDatabase
     {
         private readonly Csv2DbOption csv2DbOption;
+        private readonly Validate validate;
         private readonly FileSystem fileSystem;
         private readonly CsvUtility csvUtility;
 
@@ -19,10 +20,10 @@ namespace CsvToDatabaseAbstraction
         /// Constructor
         /// </summary>
         /// <param name="csv2DbOption"></param>
-        public CsvToDatabase(Csv2DbOption csv2DbOption)
+        public CsvToDatabase(Csv2DbOption csv2DbOption, Validate validate)
         {
             this.csv2DbOption = csv2DbOption;
-
+            this.validate = validate;
             fileSystem = new FileSystem();
             csvUtility = new CsvUtility();
         }
@@ -33,8 +34,9 @@ namespace CsvToDatabaseAbstraction
         /// </summary>
         public string GenerateDb(Func<string, CsvToDbWorkflow> csvToDbWorkflowFunc)
         {
-            if (csvToDbWorkflowFunc == null)
-                throw new ArgumentNullException("Function cannot be null. Instance of CsvToDbWorkflow is needed to proceed.");
+            if (csvToDbWorkflowFunc == null) throw new ArgumentNullException("Function cannot be null. Instance of CsvToDbWorkflow is needed to proceed.");
+
+            validate.AssertDatabasePath(csv2DbOption.DatabasePath);
 
             var csvToDbWorkflow = csvToDbWorkflowFunc(csv2DbOption.DatabasePath);
 

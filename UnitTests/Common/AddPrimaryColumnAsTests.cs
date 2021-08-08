@@ -3,6 +3,7 @@ using CsvToDatabaseAbstraction.Models;
 using CsvToDatabaseAbstraction;
 using CsvToSqlite;
 using UnitTests.Helper;
+using CsvToDatabaseAbstraction.Helpers;
 
 namespace UnitTests.Common
 {
@@ -20,7 +21,7 @@ namespace UnitTests.Common
                 SourcePath = @"DumpData"
             };
 
-            var csv = new CsvToDatabase(csvOptions);
+            var csv = new CsvToDatabase(csvOptions, new Validate());
             string databasePath = ToDbType(csv);
 
             var schema = SchemaTestHelper.GetColumnsSchema(databasePath);
@@ -37,7 +38,7 @@ namespace UnitTests.Common
                 AddPrimaryColumnAs = null
             };
 
-            var csv = new CsvToDatabase(csvOptions);
+            var csv = new CsvToDatabase(csvOptions, new Validate());
             string databasePath = ToDbType(csv);
 
             var schema = SchemaTestHelper.GetColumnsSchema(databasePath);
@@ -54,7 +55,7 @@ namespace UnitTests.Common
                 AddPrimaryColumnAs = string.Empty
             };
 
-            var csv = new CsvToDatabase(csvOptions);
+            var csv = new CsvToDatabase(csvOptions, new Validate());
             string databasePath = ToDbType(csv);
 
             var schema = SchemaTestHelper.GetColumnsSchema(databasePath);
@@ -71,7 +72,7 @@ namespace UnitTests.Common
                 AddPrimaryColumnAs = "TableId"
             };
 
-            var csv = new CsvToDatabase(csvOptions);
+            var csv = new CsvToDatabase(csvOptions, new Validate());
             string databasePath = ToDbType(csv);
 
             var schema = SchemaTestHelper.GetColumnsSchema(databasePath);

@@ -3,6 +3,7 @@ using CsvToDatabaseAbstraction;
 using CsvToDatabaseAbstraction.Models;
 using System.Collections.Generic;
 using System.Linq;
+using CsvToDatabaseAbstraction.Helpers;
 
 namespace UnitTests.Common
 {
@@ -17,7 +18,7 @@ namespace UnitTests.Common
                 SourcePath = @"DumpData"
             };
 
-            var csv = new CsvToDatabase(csvOptions);
+            var csv = new CsvToDatabase(csvOptions, new Validate());
             string databasePath = ToDbType(csv);
 
             var schema = SchemaTestHelper.GetColumnsSchema(databasePath);
@@ -41,7 +42,7 @@ namespace UnitTests.Common
                 CustomizeTableData = CustomizeTableData
             };
 
-            var csv = new CsvToDatabase(csvOptions);
+            var csv = new CsvToDatabase(csvOptions, new Validate());
             string databasePath = ToDbType(csv);
 
             var schema = SchemaTestHelper.GetColumnsSchema(databasePath);

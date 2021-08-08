@@ -2,6 +2,8 @@ using Xunit;
 using System.IO;
 using CsvToDatabaseAbstraction;
 using CsvToDatabaseAbstraction.Models;
+using CsvToDatabaseAbstraction.Helpers;
+using System;
 
 namespace UnitTests.Common
 {
@@ -26,7 +28,7 @@ namespace UnitTests.Common
                 SourcePath = @"DumpData"
             };
 
-            csvToDb = new CsvToDatabase(option);
+            csvToDb = new CsvToDatabase(option, new Validate());
             var databasePath = ToDbType(csvToDb);
             Assert.True(File.Exists(databasePath));
         }
@@ -41,7 +43,50 @@ namespace UnitTests.Common
             };
 
             option.PopulateData = true;
-            csvToDb = new CsvToDatabase(option);
+            csvToDb = new CsvToDatabase(option, new Validate());
+            var databasePath = ToDbType(csvToDb);
+            Assert.True(File.Exists(databasePath));
+        }
+
+        [Fact]
+        public void FailedNameEmpty()
+        {
+            var option = new Csv2DbOption
+            {
+                DatabasePath = "",
+                SourcePath = @"DumpData"
+            };
+
+            option.PopulateData = true;
+            csvToDb = new CsvToDatabase(option, new Validate());
+            Assert.Throws<ArgumentNullException>(() => ToDbType(csvToDb));
+        }
+
+        [Fact]
+        public void FailedNameNull()
+        {
+            var option = new Csv2DbOption
+            {
+                DatabasePath = null,
+                SourcePath = @"DumpData"
+            };
+
+            option.PopulateData = true;
+            csvToDb = new CsvToDatabase(option, new Validate());
+            Assert.Throws<ArgumentNullException>(() => ToDbType(csvToDb));
+        }
+
+        [Fact]
+        public void CreateWithNoExtension()
+        {
+            var option = new Csv2DbOption
+            {
+                DatabasePath = "DumpData/Sample",
+                SourcePath = @"DumpData"
+            };
+
+            option.PopulateData = true;
+            csvToDb = new CsvToDatabase(option, new Validate());
             var databasePath = ToDbType(csvToDb);
             Assert.True(File.Exists(databasePath));
         }
