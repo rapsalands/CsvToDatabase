@@ -27,7 +27,13 @@ namespace CsvToDatabaseAbstraction
         /// Creates empty database.
         /// </summary>
         /// <returns></returns>
-        public abstract string CreateDatabase();
+        public abstract string CreateDatabase(Csv2DbOption csv2DbOption);
+
+        /// <summary>
+        /// Returns true if database exists, else false.
+        /// </summary>
+        /// <returns></returns>
+        public abstract bool DatabaseExists(Csv2DbOption csv2DbOption);
 
         /// <summary>
         /// Create table based on options passed.

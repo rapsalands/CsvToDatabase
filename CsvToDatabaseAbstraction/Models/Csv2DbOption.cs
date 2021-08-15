@@ -28,6 +28,19 @@ namespace CsvToDatabaseAbstraction.Models
         }
 
         /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="sourcePath">Source path of files/folder containing CSV files</param>
+        /// <param name="databasePath">Database path (with or without extension.).</param>
+        /// <param name="populateData">Populate data in database if true.</param>
+        public Csv2DbOption(string sourcePath, string databasePath, bool populateData)
+        {
+            SourcePath = sourcePath;
+            DatabasePath = databasePath;
+            PopulateData = populateData;
+        }
+
+        /// <summary>
         /// Database path. Excluding database extension.
         /// </summary>
         public string DatabasePath { get; set; }
@@ -41,6 +54,12 @@ namespace CsvToDatabaseAbstraction.Models
         /// Populate data after creating database if true.
         /// </summary>
         public bool PopulateData { get; set; }
+
+        /// <summary>
+        /// If true, then do not perform any action on database if it already exists.
+        /// By default false.
+        /// </summary>
+        public bool SkipDatabaseIfExist { get; set; }
 
         /// <summary>
         /// Defaults to "Id". Means a primary with identity with name "Id" will be added to every table.

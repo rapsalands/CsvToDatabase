@@ -6,7 +6,7 @@
     <Company>StackMemory</Company>
     <Description>Based on CsvToDatabaseAbstraction package. This package helps to generate SQLite database based on CSV files.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <RepositoryUrl>https://github.com/rapsalands/CsvToDatabase</RepositoryUrl>
   </PropertyGroup>
 

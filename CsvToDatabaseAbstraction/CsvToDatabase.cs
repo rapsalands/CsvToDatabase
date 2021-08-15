@@ -78,7 +78,10 @@ namespace CsvToDatabaseAbstraction
         /// <returns></returns>
         private string Invoke(CsvToDbWorkflow csvToDbWorkflow, Csv2DbOption csv2DbOption, IEnumerable<string> filePaths)
         {
-            var databasePath = csvToDbWorkflow.CreateDatabase();
+            if (csv2DbOption.SkipDatabaseIfExist && csvToDbWorkflow.DatabaseExists(csv2DbOption))
+                return csv2DbOption.DatabasePath;
+
+            var databasePath = csvToDbWorkflow.CreateDatabase(csv2DbOption);
 
             csvToDbWorkflow.Begin();
 

@@ -27,12 +27,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CsvToDatabaseAbstraction\CsvToDatabaseAbstraction.csproj" />
-    <ProjectReference Include="..\CsvToSqlite\CsvToSqlite.csproj" />
+    <Compile Remove="SqlServer\**" />
+    <EmbeddedResource Remove="SqlServer\**" />
+    <None Remove="SqlServer\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SqlServer\" />
+    <ProjectReference Include="..\CsvToDatabaseAbstraction\CsvToDatabaseAbstraction.csproj" />
+    <ProjectReference Include="..\CsvToSqlite\CsvToSqlite.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using CsvToDatabaseAbstraction;
+using CsvToDatabaseAbstraction.Models;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.IO;
@@ -54,13 +55,23 @@ namespace CsvToSqlite
         /// Methos creates database.
         /// </summary>
         /// <returns>Returns database path.</returns>
-        public override string CreateDatabase()
+        public override string CreateDatabase(Csv2DbOption csv2DbOption)
         {
             if (File.Exists(DatabasePath))
                 File.Delete(DatabasePath);
 
             SQLiteConnection.CreateFile(DatabasePath);
             return DatabasePath;
+        }
+
+        /// <summary>
+        /// Checks if database exists.
+        /// </summary>
+        /// <param name="csv2DbOption"></param>
+        /// <returns></returns>
+        public override bool DatabaseExists(Csv2DbOption csv2DbOption)
+        {
+            return File.Exists(csv2DbOption.DatabasePath);
         }
     }
 }

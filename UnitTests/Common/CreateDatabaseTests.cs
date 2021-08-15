@@ -90,5 +90,25 @@ namespace UnitTests.Common
             var databasePath = ToDbType(csvToDb);
             Assert.True(File.Exists(databasePath));
         }
+
+        [Fact]
+        public void CreateAndSkip()
+        {
+            var option = new Csv2DbOption
+            {
+                DatabasePath = "DumpData/Sample",
+                SourcePath = @"DumpData",
+            };
+
+            csvToDb = new CsvToDatabase(option, new Validate());
+            var databasePath = ToDbType(csvToDb);
+            Assert.True(File.Exists(databasePath));
+
+            option.DatabasePath = databasePath;
+            option.SkipDatabaseIfExist = true;
+            csvToDb = new CsvToDatabase(option, new Validate());
+            databasePath = ToDbType(csvToDb);
+            Assert.True(File.Exists(databasePath));
+        }
     }
 }
