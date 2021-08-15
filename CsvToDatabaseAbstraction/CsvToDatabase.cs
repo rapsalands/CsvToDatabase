@@ -20,10 +20,10 @@ namespace CsvToDatabaseAbstraction
         /// Constructor
         /// </summary>
         /// <param name="csv2DbOption"></param>
-        public CsvToDatabase(Csv2DbOption csv2DbOption, Validate validate)
+        public CsvToDatabase(Csv2DbOption csv2DbOption)
         {
             this.csv2DbOption = csv2DbOption;
-            this.validate = validate;
+            validate = new Validate();
             fileSystem = new FileSystem();
             csvUtility = new CsvUtility();
         }

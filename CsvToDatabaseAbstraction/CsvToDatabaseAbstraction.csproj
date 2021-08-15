@@ -6,7 +6,7 @@
     <Authors>Rapsy Tree</Authors>
     <Company>StackMemory</Company>
     <Description>CsvToDatabaseAbstraction is base implementation for converting CSV files to database of any kind. Other nuget packages canbe spun based on this library.</Description>
-    <Version>1.0.6</Version>
+    <Version>1.0.7</Version>
     <RepositoryUrl>https://github.com/rapsalands/CsvToDatabase</RepositoryUrl>
   </PropertyGroup>
 

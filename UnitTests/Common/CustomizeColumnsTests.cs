@@ -18,7 +18,7 @@ namespace UnitTests.Common
                 SourcePath = @"DumpData"
             };
 
-            var csv = new CsvToDatabase(csvOptions, new Validate());
+            var csv = new CsvToDatabase(csvOptions);
             string databasePath = ToDbType(csv);
 
             var schema = SchemaTestHelper.GetColumnsSchema(databasePath);
@@ -42,7 +42,7 @@ namespace UnitTests.Common
                 CustomizeTableData = CustomizeTableData
             };
 
-            var csv = new CsvToDatabase(csvOptions, new Validate());
+            var csv = new CsvToDatabase(csvOptions);
             string databasePath = ToDbType(csv);
 
             var schema = SchemaTestHelper.GetColumnsSchema(databasePath);
