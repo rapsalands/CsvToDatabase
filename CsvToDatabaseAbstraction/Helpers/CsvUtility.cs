@@ -86,6 +86,7 @@ namespace CsvToDatabaseAbstraction.Helpers
             validate.AssertFilePath(filePath);
 
             var columns = GetColumnNames(filePath);
+            columns = columns.Where(n => !string.IsNullOrWhiteSpace(n)).ToList();
             var definitions = columnUtility.CreateDefinitions(columns);
 
             columnUtility.ConfigureDefinitions(records, definitions);
